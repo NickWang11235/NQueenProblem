@@ -89,7 +89,8 @@ public class NQueenProblem {
     //all past states
     private ArrayList<State> states;
     
-    private boolean debugger = true;
+    //Debugging settings
+    private boolean debugger = false, idle = false;
     
     /**
      * 
@@ -119,20 +120,18 @@ public class NQueenProblem {
                     log("No actions can be performed, reverting to previous state", states.size());
                     currState = states.remove(states.size()-1);
                     log(this);
-                    try {
-                        TimeUnit.SECONDS.sleep(5);
-                    } catch (InterruptedException ex) {}
+                    idle(5000);
                     return solve();
                 }else{
                     log("No solution can be found!");
-                    System.exit(1);
+                    System.exit(0);
                     return null;
                 }
             }
         }else{
             //return null if a solution is not found
-            log("Solution found");
-            System.exit(1);
+            display("Solution found :" ,this);
+            System.exit(0);
             return null;
         }
         
@@ -150,9 +149,6 @@ public class NQueenProblem {
             //prints board
             log(this);
             
-            try {
-                TimeUnit.MILLISECONDS.sleep(200);
-            } catch (InterruptedException ex) {}
             
         }
     }
@@ -174,6 +170,7 @@ public class NQueenProblem {
                 currState = new State(new Board(currState.board.arrayMap()), formulateActions(currState.board));
                 //set indicated element to queen
                 currState.set(row, col, QUEEN);
+                idle(200);
                 return true;
             case ATTACKED:
                 //if the location is attacked
@@ -222,6 +219,26 @@ public class NQueenProblem {
         if(debugger) 
             for(Object m : msg)
                 System.out.println(m);
+    }
+    
+    /**
+     * prints message to console
+     * @param msg 
+     */
+    private void display(Object... msg){
+            for(Object m : msg)
+                System.out.println(m);
+    }
+    
+    /**
+     * idle for time in milisec
+     * @param miliSec 
+     */
+    private void idle(long miliSec){
+        if(idle)
+            try {
+                TimeUnit.MILLISECONDS.sleep(miliSec);
+            } catch (InterruptedException ex) {}
     }
     
     /**

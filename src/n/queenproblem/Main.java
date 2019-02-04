@@ -12,7 +12,7 @@ package n.queenproblem;
 public class Main {
     
     public static void main(String[] args){
-        NQueenProblem p = new NQueenProblem(8);
+        NQueenProblem p = new NQueenProblem(16);
         p.solvePuzzle();
     }
     
