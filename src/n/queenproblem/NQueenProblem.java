@@ -108,7 +108,7 @@ public class NQueenProblem {
      */
     public Action solve(){
         
-        if(states.size() <= queens){
+        if(states.size() < queens-1){
             //if there is still queens to be placed
             if(!currState.actions.isEmpty()){
                 //if possible actions list is not empty, poll the first action
@@ -131,7 +131,8 @@ public class NQueenProblem {
             }
         }else{
             //return null if a solution is not found
-            log("Solution cannot be found");
+            log("Solution found");
+            System.exit(1);
             return null;
         }
         
@@ -170,7 +171,7 @@ public class NQueenProblem {
                 states.add(currState);
                 log("Moving to next state and adding to state");
                 //sets current state to a new copy of current State
-                currState = new State(currState, new Board(currState.board.arrayMap()), formulateActions(currState.board));
+                currState = new State(new Board(currState.board.arrayMap()), formulateActions(currState.board));
                 //set indicated element to queen
                 currState.set(row, col, QUEEN);
                 return true;

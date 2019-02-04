@@ -46,6 +46,10 @@ public class Board {
      */
     public int[][] arrayMap(){
         int[][] temp = new int[size][size];
+        for(int i = 0; i < size; i++)
+            for(int j = 0; j < size; j++)
+                temp[i][j] = board[i][j];
+        return temp;
     }
     
     /**
